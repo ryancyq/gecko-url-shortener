@@ -1,0 +1,9 @@
+<h1>Shorten Url</h1>
+
+<%= form_with url: url_path do |form| %>
+  <div>
+    <%= form.label :url, "Shorten a URL:" %>
+    <%= form.text_field :url %>
+    <%= form.submit "Generate" %>
+  </div>
+<% end %>
