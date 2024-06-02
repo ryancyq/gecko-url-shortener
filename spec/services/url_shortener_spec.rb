@@ -37,6 +37,10 @@ RSpec.describe UrlShortener do
     context "with new url", vcr: "valid_shorten_new_url" do
       let(:url) { "https://www.google.com" }
 
+      it "returns ShortUrl object" do
+        expect(subject.save!).to be_a(ShortUrl)
+      end
+
       it "creates target and short url" do
         expect { subject.save! }.to change(TargetUrl, :count).by(1).and change(ShortUrl, :count).by(1)
         target_url = TargetUrl.find_by(external_url: url)
