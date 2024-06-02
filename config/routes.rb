@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   root "url#root"
 
   get "/url", to: "url#new", as: :new_url
-  post "/url", to: "url#create", as: :url
+  get "/url/:short_url_id", to: "url#show", as: :url
+  post "/url", to: "url#create", as: :create_url
 
   get "/:slug", to: "url#redirect", as: :slug
   
