@@ -5,6 +5,7 @@ RSpec.describe UrlShortener do
 
   context "when url is empty" do
     let(:url) { "" }
+
     it "raise error" do
       expect { subject.save! }.to raise_error(UrlValidator::InvalidUrlError).and change(TargetUrl, :count).by(0)
     end
@@ -13,13 +14,15 @@ RSpec.describe UrlShortener do
   context "when url is malformed" do
     context "with whitespaces" do
       let(:url) { "http://www.goggle.com with white space" }
+
       it "raise error" do
         expect { subject.save! }.to raise_error(UrlValidator::InvalidUrlError).and change(TargetUrl, :count).by(0)
       end
-    end 
+    end
 
     context "without protocol" do
-      let(:url) {  "www.goggle.com" }
+      let(:url) { "www.goggle.com" }
+
       it "raise error" do
         expect { subject.save! }.to raise_error(UrlValidator::InvalidUrlFormatError).and change(TargetUrl, :count).by(0)
       end
@@ -27,6 +30,7 @@ RSpec.describe UrlShortener do
 
     context "with reserved chars" do
       let(:url) { "https://www.go.co/!@%&&%" }
+
       it "raise error" do
         expect { subject.save! }.to raise_error(UrlValidator::InvalidUrlError).and change(TargetUrl, :count).by(0)
       end
@@ -66,7 +70,7 @@ RSpec.describe UrlShortener do
       it "update target url title" do
         expect(existing_short_url.target_url.title).to eq url_title
         expect { subject.save! }.to change(TargetUrl, :count).by(0).and change(ShortUrl, :count).by(1)
-        
+
         target_url = existing_short_url.target_url.reload
         expect(target_url.title).to eq "Google"
       end
@@ -77,7 +81,7 @@ RSpec.describe UrlShortener do
         expect(target_url.title).to eq "Google"
         expect(target_url).to be_present
         expect(target_url.short_urls.size).to eq 2
-        
+
         first, second = target_url.short_urls
         expect(first).to be_present
         expect(first.slug).to be_present

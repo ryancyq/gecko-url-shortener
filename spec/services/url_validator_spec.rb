@@ -10,7 +10,8 @@ RSpec.describe UrlValidator do
 
   context "when url is malformed" do
     context "with whitespaces" do
-      include_examples "invalid url validator", "http://www.goggle.com with white space", described_class::InvalidUrlError
+      include_examples "invalid url validator", "http://www.goggle.com with white space",
+                       described_class::InvalidUrlError
     end
 
     context "without protocol" do

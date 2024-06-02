@@ -1,9 +1,8 @@
-
 class UrlShortener
   def initialize(external_url)
     @external_url = external_url
   end
-  
+
   def save!
     ActiveRecord::Base.transaction do
       saved_target_url = find_or_create_target_url!(@external_url)
@@ -11,7 +10,7 @@ class UrlShortener
     end
   end
 
-private
+  private
 
   def find_or_create_target_url!(external_url)
     validator = UrlValidator.new(external_url)

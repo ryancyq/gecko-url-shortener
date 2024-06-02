@@ -1,4 +1,4 @@
-RSpec.shared_examples "valid url validator" do | url |
+RSpec.shared_examples "valid url validator" do |url|
   subject { described_class.new(url) }
 
   context "[#{url}]" do
@@ -26,7 +26,7 @@ RSpec.shared_examples "valid url validator" do | url |
   end
 end
 
-RSpec.shared_examples "invalid url validator" do | url, error_class |
+RSpec.shared_examples "invalid url validator" do |url, error_class|
   subject { described_class.new(url) }
 
   context "[#{url}]" do

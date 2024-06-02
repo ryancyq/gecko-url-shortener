@@ -1,4 +1,4 @@
-require 'uri'
+require "uri"
 
 class UrlValidator
   class InvalidUrlError < StandardError; end
@@ -11,12 +11,10 @@ class UrlValidator
   end
 
   def validate!
-    result = URI::parse(@url)
-    if result.is_a?(URI::HTTP)
-      @uri = result
-    else
-      raise InvalidUrlFormatError, "Unsupport url format: #{@url}"
-    end
+    result = URI.parse(@url)
+    raise InvalidUrlFormatError, "Unsupport url format: #{@url}" unless result.is_a?(URI::HTTP)
+
+    @uri = result
   rescue URI::InvalidURIError
     raise InvalidUrlError, "Malformed url: #{@url}"
   end
