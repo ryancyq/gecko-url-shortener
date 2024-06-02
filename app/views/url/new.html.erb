@@ -1,11 +1,13 @@
-<h1>Shorten Url</h1>
+<div class="flex flex-col w-full">
+  <h1 class="text-3xl font-bold">Shorten Url</h1>
 
-<%= turbo_frame_tag "new_short_url" do %>
-  <%= form_with url: create_url_path do |form| %>
-    <div>
-      <%= form.label :url, "Shorten a URL:" %>
-      <%= form.text_field :url %>
-      <%= form.submit "Shorten URL" %>
-    </div>
+  <%= turbo_frame_tag "new_short_url" do %>
+    <%= form_with url: create_url_path, class: "w-full" do |form| %>
+      <div class="flex items-center py-4">
+        <%= form.label :url, "Shorten a URL:" %>
+        <%= form.text_field :url, class: "border-0 border-b grow max-w-lg", placeholder: "Enter URL here" %>
+      </div>
+      <%= form.submit "Shorten URL", class: "btn btn-primary block" %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
