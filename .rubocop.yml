@@ -1,0 +1,35 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-factory_bot
+  - rubocop-capybara
+
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+  Exclude:
+    - bin/*
+    - db/schema.rb
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  Exclude:
+    - config/environments/*.rb
+    - config/*.rb
+    - config.ru
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - config/environments/*.rb
+    - config/initializers/*.rb
+    - config/*.rb
+    - config.ru
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: consistent
