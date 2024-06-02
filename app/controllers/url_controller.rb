@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UrlController < ApplicationController
   def root
     redirect_to(new_url_path)

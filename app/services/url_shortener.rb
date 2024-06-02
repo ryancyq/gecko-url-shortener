@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UrlShortener
   def initialize(external_url)
     @external_url = external_url

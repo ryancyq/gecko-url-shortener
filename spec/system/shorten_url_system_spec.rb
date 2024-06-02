@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "Shorten URL", type: :system, vcr: "valid_new_short_url_system" do

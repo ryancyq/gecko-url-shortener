@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ShortUrl < ApplicationRecord
   belongs_to :target_url
 
