@@ -3,7 +3,7 @@
 RSpec.shared_examples "valid url validator" do |url|
   subject { described_class.new(url) }
 
-  context "[#{url}]" do
+  context "with [#{url}]" do
     describe "#valid?" do
       it "set uri attr" do
         subject.validate!
@@ -31,7 +31,7 @@ end
 RSpec.shared_examples "invalid url validator" do |url, error_class|
   subject { described_class.new(url) }
 
-  context "[#{url}]" do
+  context "with [#{url}]" do
     describe "#valid?" do
       it "does not set uri attr" do
         expect { subject.validate! }.to raise_error(error_class)

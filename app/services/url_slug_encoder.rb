@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UrlSlugEncoder
-  CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".freeze
+  CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
   CHARS_LOOKUP = CHARS.each_char.with_index.each_with_object({}) do |(char, index), result|
     result[char] = index
   end

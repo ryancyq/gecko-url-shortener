@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe UrlController, type: :controller do
+RSpec.describe UrlController do
   describe "GET root" do
     it "redirect to new_url_path" do
       get :root

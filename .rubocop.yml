@@ -33,3 +33,9 @@ Style/FrozenStringLiteralComment:
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: consistent
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
