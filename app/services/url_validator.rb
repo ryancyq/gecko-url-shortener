@@ -14,11 +14,11 @@ class UrlValidator
 
   def validate!
     result = URI.parse(@url)
-    raise InvalidUrlFormatError, "Unsupport url format: #{@url}" unless result.is_a?(URI::HTTP)
+    raise InvalidUrlFormatError, "Unsupported URL: #{@url}" unless result.is_a?(URI::HTTP)
 
     @uri = result
   rescue URI::InvalidURIError
-    raise InvalidUrlError, "Malformed url: #{@url}"
+    raise InvalidUrlError, "Malformed URL: #{@url}"
   end
 
   def valid?

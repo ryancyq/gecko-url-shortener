@@ -1,11 +1,20 @@
 <%= turbo_frame_tag "new_short_url" do %>
-  <div id="<%= dom_id @short_url %>" class="flex flex-col w-full py-4">
+  <% if notice %>
+    <div class="py-2">
+      <div class="bg-emerald-100 border-l-4 border-emerald-400 text-emerald-700 px-4 py-2 max-w-2xlrelative" role="alert">
+        <span class="block"><%= notice %></span>
+      </div>
+    </div>
+  <% end %>
+  <div id="<%= dom_id @short_url %>" class="flex flex-col w-full">
     <% target_url = @short_url.target_url %>
 
     <label for="<%= dom_id @short_url, :target %>" class="py-4">
       <span class="text-xl font-semibold">Your URL</span>
       <div id="<%= dom_id @short_url, :target %>">
-        <%= link_to target_url.external_url, target_url.external_url, target: "_blank", class: "text-sky-600" %>
+        <%= link_to target_url.external_url, target: "_blank", class: "text-sky-600 hover:underline" do %>
+          <%= target_url.external_url %>
+        <% end %>
       </div>
     </label>
     
@@ -15,7 +24,9 @@
         <%= target_url.title %>
       </div>
       <span id="<%= dom_id @short_url, :shorten %>">
-        <%= link_to slug_url(slug: @short_url.slug), slug_url(slug: @short_url.slug), target: "_blank", class: "text-sky-600"%>
+        <%= link_to slug_url(slug: @short_url.slug), target: "_blank", class: "text-sky-600 hover:underline" do %>
+          <%= slug_url(slug: @short_url.slug) %>
+        <% end %> 
       </span>
     </label>
 

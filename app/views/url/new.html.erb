@@ -1,13 +1,35 @@
 <div class="flex flex-col w-full">
-  <h1 class="text-3xl font-bold">Shorten Url</h1>
+  <h1 class="text-3xl font-bold py-4">Shorten Url</h1>
 
   <%= turbo_frame_tag "new_short_url" do %>
-    <%= form_with url: create_url_path, class: "w-full" do |form| %>
-      <div class="flex items-center py-4">
-        <%= form.label :url, "Shorten a URL:" %>
-        <%= form.text_field :url, class: "border-0 border-b grow max-w-lg", placeholder: "Enter URL here" %>
+    <%= form_with url: create_url_path, class: "max-w-2xl" do |form| %>
+      <% if notice %>
+        <div class="py-2">
+          <div class="bg-orange-100 border-l-4 border-orange-400 text-orange-700 px-4 py-2 max-w-2xlrelative" role="alert">
+            <span class="block"><%= notice %></span>
+          </div>
+        </div>
+      <% end %>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center py-2">
+        <%= form.label :url, "Shorten a URL:", class: "min-w-32" %>
+        <%= form.url_field :url, 
+          class: "border-0 border-b w-full px-0 md:px-2", 
+          placeholder: "e.g. https://www.google.com",
+          required: true
+        %>
       </div>
-      <%= form.submit "Shorten URL", class: "btn btn-primary block" %>
+      <% if alert %>
+        <div class="py-2">
+          <div class="bg-red-100 border-l-4 border-red-400 text-red-700 px-4 py-2 max-w-2xlrelative" role="alert">
+            <span class="block"><%= alert %></span>
+          </div>
+        </div>
+      <% end %>
+      <div class="pt-4">
+        <%= form.submit "Shorten URL", 
+          class: "btn btn-primary block disabled:opacity-75 disabled:bg-slate-500" 
+          %>
+      </div>
     <% end %>
   <% end %>
 </div>
