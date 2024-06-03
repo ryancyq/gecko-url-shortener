@@ -9,7 +9,9 @@ RSpec.describe UrlShortener do
     let(:url) { "" }
 
     it "raise error" do
-      expect { shortener.save! }.to raise_error(UrlValidator::InvalidUrlError).and change(TargetUrl, :count).by(0)
+      expect { shortener.save! }.to raise_error(
+        UrlValidator::InvalidUrlError
+      ).and change(TargetUrl, :count).by(0)
     end
   end
 
@@ -18,7 +20,9 @@ RSpec.describe UrlShortener do
       let(:url) { "http://www.goggle.com with white space" }
 
       it "raise error" do
-        expect { shortener.save! }.to raise_error(UrlValidator::InvalidUrlError).and change(TargetUrl, :count).by(0)
+        expect { shortener.save! }.to raise_error(
+          UrlValidator::InvalidUrlError
+        ).and change(TargetUrl, :count).by(0)
       end
     end
 
@@ -26,7 +30,9 @@ RSpec.describe UrlShortener do
       let(:url) { "www.goggle.com" }
 
       it "raise error" do
-        expect { shortener.save! }.to raise_error(UrlValidator::InvalidUrlFormatError).and change(TargetUrl, :count).by(0)
+        expect { shortener.save! }.to raise_error(
+          UrlValidator::InvalidUrlFormatError
+        ).and change(TargetUrl, :count).by(0)
       end
     end
 
@@ -34,7 +40,9 @@ RSpec.describe UrlShortener do
       let(:url) { "https://www.go.co/!@%&&%" }
 
       it "raise error" do
-        expect { shortener.save! }.to raise_error(UrlValidator::InvalidUrlError).and change(TargetUrl, :count).by(0)
+        expect { shortener.save! }.to raise_error(
+          UrlValidator::InvalidUrlError
+        ).and change(TargetUrl, :count).by(0)
       end
     end
   end
