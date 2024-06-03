@@ -39,6 +39,9 @@ class UrlSlugEncoder
     raise ArgumentError, "Encode string can't be blank" if str.blank?
     raise ArgumentError, "Encode string can't be more than #{max_chars} chars" if str.length > max_chars
 
+    # pad with zeros since we only support number input
+    str = str.rjust(max_chars, "0")
+
     # read binary data from string in 8-bit unsigned slices
     num = str.to_s.unpack("c*").each_with_index.reduce(0) do |result, (bits, pos)|
       result + (bits << (8 * pos))

@@ -18,44 +18,44 @@ RSpec.describe UrlSlugEncoder do
       context "with single digit" do
         let(:num) { "1" }
 
-        it { is_expected.to eq "N" }
+        it { is_expected.to eq "4NhuQh0in8WwpPi" }
       end
 
       context "with double digits" do
         let(:num) { "15" }
 
-        it { is_expected.to eq "3xD" }
+        it { is_expected.to eq "5btOy7XkIirhkNq" }
       end
 
       context "with triple digits" do
         let(:num) { "615" }
 
-        it { is_expected.to eq "eCRU" }
+        it { is_expected.to eq "5btQG032cp2h26Y" }
       end
     end
 
     context "when value is negative" do
       let(:num) { -1 }
 
-      it { is_expected.to eq "3h3" }
+      it { is_expected.to eq "4Nd6ABewdwz8Zt6" }
     end
 
     context "when value is zero" do
       let(:num) { 0 }
 
-      it { is_expected.to eq "M" }
+      it { is_expected.to eq "4HeMBrUGsZqWNWM" }
     end
 
     context "when value is positive" do
-      let(:num) { 1 }
+      let(:num) { 999 }
 
-      it { is_expected.to eq "N" }
+      it { is_expected.to eq "5zQqHHb4jo2K7Uk" }
     end
 
     context "when value is below max_chars" do
       let(:num) { "a" * (encoder.max_chars - 1) }
 
-      it { is_expected.to eq "2ixmpKS37KxeTv" }
+      it { is_expected.to eq "9uxKylxaU09fvaM" }
       it { expect(output.length).to be <= encoder.slug_size }
     end
 
@@ -120,7 +120,7 @@ RSpec.describe UrlSlugEncoder do
   end
 
   context "when decode output is the same as encode input" do
-    let(:input) { "98_765" }
+    let(:input) { 98_765 }
 
     it "returns the same value" do
       encoded = described_class.encode(input)
@@ -130,7 +130,7 @@ RSpec.describe UrlSlugEncoder do
       decoded = described_class.decode(encoded)
       expect(decoded).to be_present
       expect(decoded).not_to eq encoded
-      expect(decoded).to eq input
+      expect(decoded.to_i).to eq input
     end
   end
 end
