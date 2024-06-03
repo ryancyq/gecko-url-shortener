@@ -73,7 +73,9 @@ RSpec.describe Api::ShortUrlsController do
   end
 
   describe "POST create" do
-    context "with existing target_url url" do
+    context "with existing target_url url", vcr: "requests/valid_target_url_create" do
+      let(:target_url) { create(:target_url, external_url: "https://www.ruby-lang.org/en/") }
+
       it "returns sucessful response" do
         post "/api/#{target_url_path}/short_urls", as: :json
 
