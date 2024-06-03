@@ -7,19 +7,19 @@ module Api
     rescue_from UrlValidator::InvalidUrlError, UrlValidator::InvalidUrlFormatError, with: :handle_url_errors
 
     def index
-      target_urls = TargetUrl.all
-      render json: target_urls
+      @target_urls = TargetUrl.preload(:short_urls).all
     end
 
     def show
-      render json: @target_url
+      @target_url
     end
 
     def create
       input_url = params.require(:url)
       short_url = UrlShortener.new(input_url).save!
+      @target_url = short_url.target_url
 
-      render status: :created, json: short_url.target_url
+      render status: :created
     end
 
     def destroy

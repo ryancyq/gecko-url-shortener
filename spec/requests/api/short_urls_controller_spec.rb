@@ -28,8 +28,7 @@ RSpec.describe Api::ShortUrlsController do
         expect(response.parsed_body).to include(
           hash_including(
             id: kind_of(Integer),
-            target_url_id: kind_of(Integer),
-            slug: be_present
+            url: be_present
           )
         )
       end
@@ -65,8 +64,7 @@ RSpec.describe Api::ShortUrlsController do
         expect(response.parsed_body).to be_a(Hash)
         expect(response.parsed_body).to include(
           id: kind_of(Integer),
-          target_url_id: kind_of(Integer),
-          slug: be_present
+          url: be_present
         )
       end
     end
@@ -83,8 +81,7 @@ RSpec.describe Api::ShortUrlsController do
         expect(response.parsed_body).to be_a(Hash)
         expect(response.parsed_body).to include(
           id: kind_of(Integer),
-          target_url_id: kind_of(Integer),
-          slug: be_present
+          url: be_present
         )
       end
     end

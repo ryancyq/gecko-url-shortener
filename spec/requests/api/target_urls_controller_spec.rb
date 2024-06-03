@@ -25,8 +25,9 @@ RSpec.describe Api::TargetUrlsController do
         expect(response.parsed_body).to include(
           hash_including(
             id: kind_of(Integer),
-            external_url: be_present,
-            title: be_present
+            url: be_present,
+            title: be_present,
+            shorten_urls: be_empty
           )
         )
       end
@@ -62,8 +63,9 @@ RSpec.describe Api::TargetUrlsController do
         expect(response.parsed_body).to be_a(Hash)
         expect(response.parsed_body).to include(
           id: kind_of(Integer),
-          external_url: be_present,
-          title: be_present
+          url: be_present,
+          title: be_present,
+          shorten_urls: be_empty
         )
       end
     end
@@ -102,8 +104,14 @@ RSpec.describe Api::TargetUrlsController do
         expect(response.parsed_body).to be_a(Hash)
         expect(response.parsed_body).to include(
           id: kind_of(Integer),
-          external_url: eq(url),
-          title: be_present
+          url: be_present,
+          title: be_present,
+          shorten_urls: array_including(
+            hash_including(
+              id: kind_of(Integer),
+              url: be_present
+            )
+          )
         )
       end
     end

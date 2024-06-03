@@ -6,18 +6,18 @@ module Api
     before_action :load_short_url, only: %i[show destroy]
 
     def index
-      render json: @target_url.short_urls
+      @short_urls = @target_url.short_urls
     end
 
     def show
-      render json: @short_url
+      @short_url
     end
 
     def create
       input_url = @target_url.external_url
-      short_url = UrlShortener.new(input_url).save!
+      @short_url = UrlShortener.new(input_url).save!
 
-      render status: :created, json: short_url
+      render status: :created
     end
 
     def destroy
