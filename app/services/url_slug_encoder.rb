@@ -12,7 +12,7 @@ module UrlSlugEncoder
   MAX_CHARS = (Math.log2(MAX_VALUE) / 8).floor
 
   def self.encode(input)
-    intput = input.to_s if input.is_a?(Integer)
+    intput = input.to_s unless input.is_a?(String)
 
     str = input&.to_s.presence
     raise ArgumentError, "Encode string can't be blank" if str.blank?
@@ -43,7 +43,7 @@ module UrlSlugEncoder
   end
 
   def self.decode(input)
-    intput = input.to_s if input.is_a?(Integer)
+    intput = input.to_s unless input.is_a?(String)
 
     str = input&.to_s.presence
     raise ArgumentError, "Decode string can't be blank" if str.blank?
