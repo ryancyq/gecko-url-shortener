@@ -17,7 +17,7 @@ module Api
       input_url = @target_url.external_url
       short_url = UrlShortener.new(input_url).save!
 
-      render json: short_url
+      render status: :created, json: short_url
     end
 
     def destroy
