@@ -6,22 +6,31 @@ RSpec.describe UrlValidator do
   subject { described_class.new(url) }
 
   context "when url is empty" do
-    include_examples "invalid url validator", "", described_class::InvalidUrlError
-    include_examples "invalid url validator", "     ", described_class::InvalidUrlError
+    include_examples "invalid url validator", "" do
+      let(:error_class) { described_class::InvalidUrlError }
+    end
+    include_examples "invalid url validator", "     " do
+      let(:error_class) { described_class::InvalidUrlError }
+    end
   end
 
   context "when url is malformed" do
     context "with whitespaces" do
-      include_examples "invalid url validator", "http://www.goggle.com with white space",
-                       described_class::InvalidUrlError
+      include_examples "invalid url validator", "http://www.goggle.com with white space" do
+        let(:error_class) { described_class::InvalidUrlError }
+      end
     end
 
     context "without protocol" do
-      include_examples "invalid url validator", "www.goggle.com", described_class::InvalidUrlFormatError
+      include_examples "invalid url validator", "www.goggle.com" do
+        let(:error_class) { described_class::InvalidUrlFormatError }
+      end
     end
 
     context "with reserved chars" do
-      include_examples "invalid url validator", "https://www.go.co/!@%&&%", described_class::InvalidUrlError
+      include_examples "invalid url validator", "https://www.go.co/!@%&&%" do
+        let(:error_class) { described_class::InvalidUrlError }
+      end
     end
   end
 
