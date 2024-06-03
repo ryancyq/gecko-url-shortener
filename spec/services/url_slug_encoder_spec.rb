@@ -4,12 +4,14 @@ require "rails_helper"
 
 RSpec.describe UrlSlugEncoder do
   describe "#encode" do
-    subject(:encoder) { described_class.encode(num) }
+    subject(:output) { encoder.encode(num) }
+
+    let(:encoder) { described_class.default }
 
     context "when value is nil" do
       let(:num) { nil }
 
-      it { expect { encoder }.to raise_error(ArgumentError, "Encode string can't be blank") }
+      it { expect { output }.to raise_error(ArgumentError, "Encode string can't be blank") }
     end
 
     context "when value is string" do
@@ -50,25 +52,25 @@ RSpec.describe UrlSlugEncoder do
       it { is_expected.to eq "N" }
     end
 
-    context "when value is below MAX_VALUE" do
-      let(:num) { "a" * (described_class::MAX_CHARS - 1) }
+    context "when value is below max_chars" do
+      let(:num) { "a" * (encoder.max_chars - 1) }
 
       it { is_expected.to eq "2ixmpKS37KxeTv" }
-      it { expect(encoder.length).to be <= described_class::MAX_LENGTH }
+      it { expect(output.length).to be <= encoder.slug_size }
     end
 
-    context "when value is MAX_VALUE" do
-      let(:num) { "A" * described_class::MAX_CHARS }
+    context "when value is max_chars" do
+      let(:num) { "A" * encoder.max_chars }
 
       it { is_expected.to eq "6mnTu2VnVlbWXT3" }
-      it { expect(encoder.length).to be <= described_class::MAX_LENGTH }
+      it { expect(output.length).to be <= encoder.slug_size }
     end
 
-    context "when value exceeds MAX_VALUE" do
-      let(:num) { "n" * (described_class::MAX_CHARS + 1) }
+    context "when value exceeds max_chars" do
+      let(:num) { "n" * (encoder.max_chars + 1) }
 
       it {
-        expect { encoder }.to raise_error(
+        expect { output }.to raise_error(
           ArgumentError, "Encode string can't be more than 11 chars"
         )
       }
@@ -76,24 +78,26 @@ RSpec.describe UrlSlugEncoder do
   end
 
   describe "#decode" do
-    subject(:decoder) { described_class.decode(text) }
+    subject(:output) { decoder.decode(text) }
+
+    let(:decoder) { described_class.default }
 
     context "when text is nil" do
       let(:text) { nil }
 
-      it { expect { decoder }.to raise_error(ArgumentError, "Decode string can't be blank") }
+      it { expect { output }.to raise_error(ArgumentError, "Decode string can't be blank") }
     end
 
     context "when text is empty" do
       let(:text) { "" }
 
-      it { expect { decoder }.to raise_error(ArgumentError, "Decode string can't be blank") }
+      it { expect { output }.to raise_error(ArgumentError, "Decode string can't be blank") }
     end
 
     context "when text is whitespace only" do
       let(:text) { "     " }
 
-      it { expect { decoder }.to raise_error(ArgumentError, "Decode string can't be blank") }
+      it { expect { output }.to raise_error(ArgumentError, "Decode string can't be blank") }
     end
 
     context "when text is 1 char" do
@@ -111,7 +115,7 @@ RSpec.describe UrlSlugEncoder do
     context "when text is more than 15 chars" do
       let(:text) { "mBa2vcC9esdp51s1fbvLerv0P2Nc9D" }
 
-      it { expect { decoder }.to raise_error(ArgumentError, "Decode string can't be more than 15 chars") }
+      it { expect { output }.to raise_error(ArgumentError, "Decode string can't be more than 15 chars") }
     end
   end
 

@@ -21,13 +21,13 @@ class UrlController < ApplicationController
   end
 
   def redirect
-    url_slug = params.require(:slug)[0...UrlSlugEncoder::MAX_LENGTH]
-    short_url = ShortUrl.find_by(slug: url_slug)
-
-    if short_url.present?
-      redirect_to(short_url.target_url.external_url, allow_other_host: true)
-    else
-      redirect_to(new_url_path)
+    url_slug = params.require(:slug)
+    short_url = if UrlSlugEncoder.default.slug_size >= url_slug.length
+      ShortUrl.find_by(slug: url_slug)
     end
+
+    return redirect_to(new_url_path) unless short_url.present?
+      
+    redirect_to(short_url.target_url.external_url, allow_other_host: true)
   end
 end
