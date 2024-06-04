@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_084135) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_133153) do
   create_table "short_urls", force: :cascade do |t|
     t.string "slug", null: false
     t.bigint "target_url_id"
@@ -34,6 +34,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_084135) do
     t.integer "short_url_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "country"
+    t.string "city"
     t.index ["short_url_id"], name: "index_url_redirection_events_on_short_url_id"
   end
 
