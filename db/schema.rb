@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_184059) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_054839) do
   create_table "short_urls", force: :cascade do |t|
     t.string "slug", null: false
     t.bigint "target_url_id"
@@ -21,7 +21,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_184059) do
   create_table "target_urls", force: :cascade do |t|
     t.string "external_url", null: false
     t.string "title"
-    t.datetime "created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["external_url"], name: "index_target_urls_on_external_url", unique: true
   end
 
