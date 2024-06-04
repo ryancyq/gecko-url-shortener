@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateShortUrlIdInEvent < ActiveRecord::Migration[7.1]
   def change
     remove_index :short_url_events, :short_urls_id, name: "index_short_url_events_on_short_urls_id"

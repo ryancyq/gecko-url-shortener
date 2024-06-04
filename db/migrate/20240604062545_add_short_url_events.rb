@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddShortUrlEvents < ActiveRecord::Migration[7.1]
   def change
     create_table :short_url_events do |t|

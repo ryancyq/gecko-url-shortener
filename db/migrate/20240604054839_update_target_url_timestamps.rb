@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateTargetUrlTimestamps < ActiveRecord::Migration[7.1]
   def up
     add_column :target_urls, :updated_at, :datetime, null: true
