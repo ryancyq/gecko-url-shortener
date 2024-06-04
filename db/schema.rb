@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_064305) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_064908) do
   create_table "short_url_events", force: :cascade do |t|
     t.string "user_agent"
     t.string "ip_address", null: false
     t.string "path", null: false
     t.string "method", null: false
-    t.integer "short_urls_id", null: false
+    t.integer "short_urls_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["short_urls_id"], name: "index_short_url_events_on_short_urls_id"
