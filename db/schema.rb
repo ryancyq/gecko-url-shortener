@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_062545) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_064305) do
   create_table "short_url_events", force: :cascade do |t|
-    t.string "user_agent", null: false
+    t.string "user_agent"
     t.string "ip_address", null: false
     t.string "path", null: false
     t.string "method", null: false
