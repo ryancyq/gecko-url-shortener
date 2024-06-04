@@ -13,6 +13,7 @@ AllCops:
   Exclude:
     - bin/*
     - db/schema.rb
+    - '**/*.jbuilder'
 
 Style/Documentation:
   Enabled: false
