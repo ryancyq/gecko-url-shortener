@@ -12,21 +12,21 @@
     <label for="<%= dom_id @short_url, :target %>" class="py-4">
       <span class="text-xl font-semibold">Your URL</span>
       <div id="<%= dom_id @short_url, :target %>">
-        <%= link_to target_url.external_url, target: "_blank", class: "text-sky-600 hover:underline" do %>
-          <%= target_url.external_url %>
-        <% end %>
+        <a 
+          class="text-sky-600 hover:underline" 
+          href="<%= target_url.external_url %>" 
+          target="_blank"><%= target_url.external_url %></a>
       </div>
     </label>
     
     <label for="<%= dom_id @short_url, :shorten %>" class="py-4">
       <span class="text-xl font-semibold">Shortened URL</span>
-      <div class="font-light">
-        <%= target_url.title %>
-      </div>
+      <div class="font-light"><%= target_url.title %></div>
       <span id="<%= dom_id @short_url, :shorten %>">
-        <%= link_to slug_url(slug: @short_url.slug), target: "_blank", class: "text-sky-600 hover:underline" do %>
-          <%= slug_url(slug: @short_url.slug) %>
-        <% end %> 
+        <a 
+          class="text-sky-600 hover:underline" 
+          href="<%= slug_url(slug: @short_url.slug) %>" 
+          target="_blank"><%= slug_url(slug: @short_url.slug) %></a>
       </span>
     </label>
 
