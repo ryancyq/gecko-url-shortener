@@ -3,8 +3,6 @@
 class UrlController < ApplicationController
   include TrackUrlRedirection
 
-  after_action :track_url_redirection, only: :redirect
-
   def root
     redirect_to(new_url_path)
   end
@@ -27,10 +25,11 @@ class UrlController < ApplicationController
 
   def redirect
     url_slug = params.require(:slug)
-    @short_url = (ShortUrl.find_by(slug: url_slug) if UrlSlugEncoder.default.slug_size >= url_slug.length)
+    short_url = (ShortUrl.find_by(slug: url_slug) if UrlSlugEncoder.default.slug_size >= url_slug.length)
 
-    return redirect_to new_url_path, notice: "URL no longer available" unless @short_url.present?
+    return redirect_to new_url_path, notice: "URL no longer available" unless short_url.present?
 
-    redirect_to @short_url.target_url.external_url, allow_other_host: true
+    track_url_redirection(short_url)
+    redirect_to short_url.target_url.external_url, allow_other_host: true
   end
 end
