@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class UrlController < ApplicationController
-  include TrackShortUrl
+  include TrackUrlRedirection
 
-  after_action :track_short_url, only: :redirect
+  after_action :track_url_redirection, only: :redirect
 
   def root
     redirect_to(new_url_path)

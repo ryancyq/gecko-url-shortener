@@ -10,18 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_065622) do
-  create_table "short_url_events", force: :cascade do |t|
-    t.string "user_agent"
-    t.string "ip_address", null: false
-    t.string "path", null: false
-    t.string "method", null: false
-    t.integer "short_url_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["short_url_id"], name: "index_short_url_events_on_short_url_id"
-  end
-
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_084135) do
   create_table "short_urls", force: :cascade do |t|
     t.string "slug", null: false
     t.bigint "target_url_id"
@@ -37,6 +26,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_065622) do
     t.index ["external_url"], name: "index_target_urls_on_external_url", unique: true
   end
 
-  add_foreign_key "short_url_events", "short_urls"
+  create_table "url_redirection_events", force: :cascade do |t|
+    t.string "user_agent"
+    t.string "ip_address", null: false
+    t.string "path", null: false
+    t.string "method", null: false
+    t.integer "short_url_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["short_url_id"], name: "index_url_redirection_events_on_short_url_id"
+  end
+
   add_foreign_key "short_urls", "target_urls"
+  add_foreign_key "url_redirection_events", "short_urls"
 end
