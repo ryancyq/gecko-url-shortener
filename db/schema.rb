@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_054839) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_062545) do
+  create_table "short_url_events", force: :cascade do |t|
+    t.string "user_agent", null: false
+    t.string "ip_address", null: false
+    t.string "path", null: false
+    t.string "method", null: false
+    t.integer "short_urls_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["short_urls_id"], name: "index_short_url_events_on_short_urls_id"
+  end
+
   create_table "short_urls", force: :cascade do |t|
     t.string "slug", null: false
     t.bigint "target_url_id"
@@ -26,5 +37,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_054839) do
     t.index ["external_url"], name: "index_target_urls_on_external_url", unique: true
   end
 
+  add_foreign_key "short_url_events", "short_urls", column: "short_urls_id"
   add_foreign_key "short_urls", "target_urls"
 end
