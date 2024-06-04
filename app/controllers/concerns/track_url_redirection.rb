@@ -5,6 +5,7 @@ module TrackUrlRedirection
 
   included do
     before_action :set_url_redirection
+    after_action :enqueue_geolocation_job, unless: -> { Current.url_redirection_event.new_record? }
     after_action :save_url_redirection
   end
 
@@ -34,5 +35,9 @@ module TrackUrlRedirection
       path: request.path,
       method: request.method
     )
+  end
+
+  def enqueue_geolocation_job
+    ::UrlRedirection::UpdateGeoLocationJob.perform_later(Current.url_redirection_event.id)
   end
 end

@@ -54,19 +54,31 @@ RSpec.describe UrlController do
         expect(short_url.url_redirection_events.size).to eq 5
         expect(short_url.url_redirection_events.map(&:path)).to all(eq "/#{short_url.slug}")
       end
+
+      it "enqueues update geolocation job" do
+        expect { get "/#{short_url.slug}" }.to have_enqueued_job(
+          UrlRedirection::UpdateGeoLocationJob
+        ).with(short_url.id)
+      end
     end
 
     context "with non-existing slug" do
+      let(:slug) { "non-existing" }
+
       it "redirect to url#new" do
-        get "/non-existing"
+        get "/#{slug}"
 
         expect(response).to redirect_to(new_url_path)
       end
 
       it "does not create url redirection event" do
-        expect { get "/non-existing" }.not_to change(UrlRedirectionEvent, :count)
+        expect { get "/#{slug}" }.not_to change(UrlRedirectionEvent, :count)
 
         expect(response).to redirect_to(new_url_path)
+      end
+
+      it "does not enqueue update geolocation job" do
+        expect { get "/#{slug}" }.not_to have_enqueued_job(UrlRedirection::UpdateGeoLocationJob)
       end
     end
   end
