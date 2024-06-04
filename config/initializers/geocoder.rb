@@ -23,6 +23,6 @@ Geocoder.configure(
   cache: Geocoder::CacheStore::Generic.new(Rails.cache, {}),
   cache_options: {
     expiration: 2.days,
-    prefix: 'geocoder:'
+    prefix: "geocoder:"
   }
 )

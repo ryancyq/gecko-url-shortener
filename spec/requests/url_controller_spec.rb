@@ -58,7 +58,8 @@ RSpec.describe UrlController do
       it "enqueues update geolocation job" do
         expect { get "/#{short_url.slug}" }.to have_enqueued_job(
           UrlRedirection::UpdateGeoLocationJob
-        ).with(short_url.id)
+        ).with(kind_of(Integer), short_url.id)
+        # unable to get exact event id inline with GET request
       end
     end
 

@@ -38,6 +38,8 @@ module TrackUrlRedirection
   end
 
   def enqueue_geolocation_job
-    ::UrlRedirection::UpdateGeoLocationJob.perform_later(Current.url_redirection_event.id)
+    ::UrlRedirection::UpdateGeoLocationJob.perform_later(
+      Current.url_redirection_event.id, Current.url_redirection_event.short_url_id
+    )
   end
 end
