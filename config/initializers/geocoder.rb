@@ -20,8 +20,9 @@ Geocoder.configure(
   # distances: :linear          # :spherical or :linear
 
   # Cache configuration
-  # cache_options: {
-  #   expiration: 2.days,
-  #   prefix: 'geocoder:'
-  # }
+  cache: Geocoder::CacheStore::Generic.new(Rails.cache, {}),
+  cache_options: {
+    expiration: 2.days,
+    prefix: 'geocoder:'
+  }
 )
