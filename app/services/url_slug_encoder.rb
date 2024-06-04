@@ -33,8 +33,6 @@ class UrlSlugEncoder
   end
 
   def encode(input)
-    intput = input.to_s unless input.is_a?(String)
-
     str = input&.to_s.presence
     raise ArgumentError, "Encode string can't be blank" if str.blank?
     raise ArgumentError, "Encode string can't be more than #{max_chars} chars" if str.length > max_chars
@@ -51,8 +49,6 @@ class UrlSlugEncoder
   end
 
   def decode(input)
-    intput = input.to_s unless input.is_a?(String)
-
     str = input&.to_s.presence
     raise ArgumentError, "Decode string can't be blank" if str.blank?
     raise ArgumentError, "Decode string can't be more than #{slug_size} chars" if str.length > slug_size
