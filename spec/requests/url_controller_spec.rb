@@ -22,39 +22,49 @@ RSpec.describe UrlController do
         expect(response).to redirect_to(target_url.external_url)
       end
 
-      it "track short_url event" do
+      it "creates url redirection event" do
         expect do
           get "/#{short_url.slug}"
         end.to change(UrlRedirectionEvent, :count).by(1)
 
         expect(response).to redirect_to(target_url.external_url)
         expect(short_url.url_redirection_events.size).to eq 1
+        expect(short_url.url_redirection_events.first.path).to eq "/#{short_url.slug}"
       end
 
-      it "track short_url event on different slug" do
+      it "creates different url redirection events for different slug" do
         get "/#{short_url.slug}"
         expect(response).to redirect_to(target_url.external_url)
         expect(short_url.url_redirection_events.size).to eq 1
+        expect(short_url.url_redirection_events.first.path).to eq "/#{short_url.slug}"
 
         another_short_url = create(:short_url, target_url:)
         get "/#{another_short_url.slug}"
         expect(response).to redirect_to(target_url.external_url)
         expect(another_short_url.url_redirection_events.size).to eq 1
+        expect(another_short_url.url_redirection_events.first.path).to eq "/#{another_short_url.slug}"
       end
 
-      it "track multiple short_url events under same slug" do
+      it "creates multiple url redirection events under same slug" do
         expect do
           5.times { get "/#{short_url.slug}" }
           expect(response).to redirect_to(target_url.external_url)
         end.to change(UrlRedirectionEvent, :count).by(5)
 
         expect(short_url.url_redirection_events.size).to eq 5
+        expect(short_url.url_redirection_events.map(&:path)).to all(eq "/#{short_url.slug}")
       end
     end
 
     context "with non-existing slug" do
       it "redirect to url#new" do
         get "/non-existing"
+
+        expect(response).to redirect_to(new_url_path)
+      end
+
+      it "does not create url redirection event" do
+        expect { get "/non-existing" }.not_to change(UrlRedirectionEvent, :count)
 
         expect(response).to redirect_to(new_url_path)
       end
