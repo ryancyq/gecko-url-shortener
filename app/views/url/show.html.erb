@@ -31,7 +31,7 @@
     </label>
 
     <div class="pt-8">
-      <%= link_to "Shorten another", new_url_path, class: "btn btn-primary" %>
+      <a class="btn btn-primary" href="<%= new_url_path %>" data-turbo-frame="_top">Shorten another</a>
     </div>
   </div>
 <% end %>
