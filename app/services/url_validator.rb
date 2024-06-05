@@ -3,8 +3,10 @@
 require "uri"
 
 class UrlValidator
-  class InvalidUrlError < StandardError; end
-  class InvalidUrlFormatError < StandardError; end
+  class UrlError < StandardError; end
+  class UnknownError < UrlError; end
+  class MalformedFormatError < UrlError; end
+  class UnsupportedHostnameError < UrlError; end
 
   attr_reader :uri
 
@@ -14,17 +16,17 @@ class UrlValidator
 
   def validate!
     result = URI.parse(@url)
-    raise InvalidUrlFormatError, "Unsupported URL: #{@url}" unless result.is_a?(URI::HTTP)
+    raise MalformedFormatError, "Malformed URL: #{@url}" unless result.is_a?(URI::HTTP)
 
     @uri = result
   rescue URI::InvalidURIError
-    raise InvalidUrlError, "Malformed URL: #{@url}"
+    raise UnknownError, "Unknown URL: #{@url}"
   end
 
   def valid?
     validate! unless defined? @uri
     @uri.present?
-  rescue InvalidUrlError, InvalidUrlFormatError
+  rescue UrlError
     false
   end
 end

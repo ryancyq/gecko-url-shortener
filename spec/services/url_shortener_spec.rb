@@ -10,7 +10,7 @@ RSpec.describe UrlShortener do
 
     it "raise error" do
       expect { shortener.save! }.to raise_error(
-        UrlValidator::InvalidUrlError
+        UrlValidator::UnknownError
       ).and change(TargetUrl, :count).by(0)
     end
   end
@@ -21,7 +21,7 @@ RSpec.describe UrlShortener do
 
       it "raise error" do
         expect { shortener.save! }.to raise_error(
-          UrlValidator::InvalidUrlError
+          UrlValidator::UnknownError
         ).and change(TargetUrl, :count).by(0)
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe UrlShortener do
 
       it "raise error" do
         expect { shortener.save! }.to raise_error(
-          UrlValidator::InvalidUrlFormatError
+          UrlValidator::MalformedFormatError
         ).and change(TargetUrl, :count).by(0)
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe UrlShortener do
 
       it "raise error" do
         expect { shortener.save! }.to raise_error(
-          UrlValidator::InvalidUrlError
+          UrlValidator::UnknownError
         ).and change(TargetUrl, :count).by(0)
       end
     end

@@ -18,7 +18,7 @@ class UrlController < ApplicationController
     @short_url = UrlShortener.new(input_url).save!
 
     redirect_to url_path(@short_url.id), notice: "URL shortened successfully"
-  rescue UrlValidator::InvalidUrlError, UrlValidator::InvalidUrlFormatError => e
+  rescue UrlValidator::UrlError => e
     flash.now[:alert] = e.message
     render :new, status: :unprocessable_entity
   end

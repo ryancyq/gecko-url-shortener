@@ -30,7 +30,7 @@ RSpec.describe "Shorten URL" do
     expect(page).to have_button("Shorten URL")
   end
 
-  it "create using incomplete URL format" do
+  it "create using unknown URL format" do
     visit "/url"
 
     expect(page).to have_text("Shorten a URL:")
@@ -39,6 +39,6 @@ RSpec.describe "Shorten URL" do
     fill_in "Shorten a URL:", with: "https://helolo.adsa.\\\\edu/\\/"
     click_link_or_button "Shorten URL"
 
-    expect(page).to have_text("Malformed URL: https://helolo.adsa.\\\\edu/\\/")
+    expect(page).to have_text("Unknown URL: https://helolo.adsa.\\\\edu/\\/")
   end
 end

@@ -4,7 +4,7 @@ module Api
   class TargetUrlsController < ApiController
     before_action :load_target_url, only: %i[show destroy]
 
-    rescue_from UrlValidator::InvalidUrlError, UrlValidator::InvalidUrlFormatError, with: :handle_url_errors
+    rescue_from UrlValidator::UrlError, with: :handle_url_errors
 
     def index
       @target_urls = TargetUrl.preload(:short_urls).all
