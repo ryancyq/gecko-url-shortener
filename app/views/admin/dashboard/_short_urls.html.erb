@@ -38,10 +38,16 @@
               </span>
             </div>
           </div>
-          <div class="shrink-0 flex flex-row items-center self-end sm:flex-col sm:items-end">
-            <div class="text-sm px-2 py-1 rounded-md text-lime-600 lg:hover:bg-lime-50">
-              <a href="<%= admin_dashboard_url_events_path(short_url.id) %>" 
-                data-turbo-frame="short_url_<%= short_url.id %>_events">Show Details</a>
+          <div class="flex py-0 md:py-2">
+            <div class="p-2 rounded-md text-lime-600 lg:hover:bg-lime-50">
+              <a class="flex leading-5"
+                href="<%= admin_dashboard_url_events_path(short_url.id) %>" 
+                data-turbo-frame="short_url_<%= short_url.id %>_events">
+                <span class="text-xs font-medium pr-2">Show Details</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
