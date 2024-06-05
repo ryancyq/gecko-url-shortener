@@ -90,6 +90,7 @@ RSpec.describe "Admin Dashbaord" do
 
           within "table" do
             within "thead" do
+              expect(page).to have_css("th", text: "TIMESTAMP")
               expect(page).to have_css("th", text: "USER AGENT")
               expect(page).to have_css("th", text: "IP ADDRESS")
               expect(page).to have_css("th", text: "COUNTRY")

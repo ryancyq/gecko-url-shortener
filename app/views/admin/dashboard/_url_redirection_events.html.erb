@@ -3,6 +3,7 @@
     <table class="w-full text-sm text-left text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
+                <th scope="col" class="px-4 py-3">Timestamp</th>
                 <th scope="col" class="px-4 py-3">User Agent</th>
                 <th scope="col" class="px-4 py-3 min-w-40">IP Address</th>
                 <th scope="col" class="px-4 py-3 min-w-24">Country</th>
@@ -12,6 +13,7 @@
         <tbody>
             <% url_redirection_events.each do |event| %>
               <tr class="bg-white border-b">
+                  <td class="px-4 py-2"><%= event.created_at %></td>
                   <td class="px-4 py-2"><%= event.user_agent %></td>
                   <td class="px-4 py-2"><%= event.ip_address %></td>
                   <td class="px-4 py-2"><%= event.country.presence || "-" %></td>
