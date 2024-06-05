@@ -66,6 +66,9 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
+  # required by fly.io
+  gem "dockerfile-rails", ">= 1.6"
+
   gem "rubocop", "~> 1.57.2", require: false
   gem "rubocop-capybara", require: false
   gem "rubocop-factory_bot", require: false
