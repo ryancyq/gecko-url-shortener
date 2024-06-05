@@ -12,13 +12,18 @@ class UrlValidator
 
   def initialize(url_string)
     @url = url_string.presence
+    @restricted_hostnames = ENV.fetch("RESTRICTED_HOSTNAMES", "").split(",").map(&:strip)
   end
 
   def validate!
-    result = URI.parse(@url)
-    raise MalformedFormatError, "Malformed URL: #{@url}" unless result.is_a?(URI::HTTP)
+    parsed_uri = URI.parse(@url)
+    raise MalformedFormatError, "Malformed URL: #{parsed_uri}" unless parsed_uri.is_a?(URI::HTTP)
 
-    @uri = result
+    if @restricted_hostnames.include?(parsed_uri.hostname)
+      raise UnsupportedHostnameError, "Unsupported hostname: #{parsed_uri.hostname}"
+    end
+
+    @uri = parsed_uri
   rescue URI::InvalidURIError
     raise UnknownError, "Unknown URL: #{@url}"
   end

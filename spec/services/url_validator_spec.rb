@@ -40,4 +40,27 @@ RSpec.describe UrlValidator do
     include_examples "valid url validator", "https://www.google.com/search?q=ruby"
     include_examples "valid url validator", "https://www.google.com/#%7C+ls"
   end
+
+  context "when url contains restricted hostname" do
+    before do
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with("RESTRICTED_HOSTNAMES", "").and_return(restricted_hostnames)
+    end
+
+    context "with multiple hostnames" do
+      let(:restricted_hostnames) { "www.google.com,www.github.com," }
+
+      include_examples "invalid url validator", "https://www.github.com" do
+        let(:error_class) { described_class::UnsupportedHostnameError }
+      end
+    end
+
+    context "with fly.io" do
+      let(:restricted_hostnames) { "gecko-url-shortener.fly.dev" }
+      
+      include_examples "invalid url validator", "https://gecko-url-shortener.fly.dev/" do
+        let(:error_class) { described_class::UnsupportedHostnameError }
+      end
+    end
+  end
 end
