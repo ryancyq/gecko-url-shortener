@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "url#root"
 
+  namespace :admin do
+    get "/", to: "dashboard#index", as: :dashboard
+  end
+
   namespace :api do
     resources :target_urls, only: %i[index show create destroy] do
       resources :short_urls, only: %i[index show create destroy]
