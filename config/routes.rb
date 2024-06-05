@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/", to: "dashboard#index", as: :dashboard
+    get "/:target_url_id/urls", to: "dashboard#urls", as: :dashboard_urls
   end
 
   namespace :api do

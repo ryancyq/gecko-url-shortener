@@ -1,0 +1,45 @@
+<div class="px-4 py-2 sm:rounded-lg border border-gray-300">
+  <h3 class="text-sm font-medium">Shorten URLs</h2>
+  <ul role="list" class="divide-y divide-gray-100">
+    <% short_urls.each do |short_url| %>
+      <li class="flex flex-col justify-between p-y-2">
+        <div class="flex flex-col gap-y-3 md:flex-row justify-between md:gap-x-3 pt-4 pb-2">
+          <div class="flex-auto">
+            <a 
+              class="truncate text-xs leading-5 text-sky-600 hover:underline"
+              href="<%= slug_url(short_url.slug) %>"
+              target="_blank" 
+              ><%= slug_url(short_url.slug) %></a>
+          </div>
+          <div class="shrink-0 flex flex-row gap-x-3 items-center">
+            <% visit_count = url_visits.dig(short_url.id, :count) %>
+            <% last_visit = url_visits.dig(short_url.id, :latest) %>
+            <% if last_visit.present? %>
+              <span class="text-sm text-gray-500">
+                last visited - <time datetime="<%= last_visit %>">
+                  <% if last_visit < 23.hours.ago %>
+                    <%= last_visit.strftime("%e %b %Y") %>
+                  <% else %>
+                    <%= time_ago_in_words(last_visit) %>
+                  <% end %>
+                </time>
+              </span>
+            <% end %>
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" />
+              </svg>
+              <span class="text-sm text-gray-500">
+                <% if visit_count&.positive? %>
+                  <%= pluralize(visit_count, "time") %>
+                <% else %>
+                  no clicks yet
+                <% end %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

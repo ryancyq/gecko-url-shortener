@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "target_url_#{@target_url.id}_short_urls" do %>
+  <div class="w-full">
+    <% if @short_urls&.present? %>
+      <%= render partial: "short_urls", object: @short_urls, locals: { url_visits: @url_visits } %>    
+    <% else %>
+      <div class="text-sm text-gray-500">No URLs being shortened.</div>
+    <% end %>
+  </div>
+<% end %>
