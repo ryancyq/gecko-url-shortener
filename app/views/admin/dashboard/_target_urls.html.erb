@@ -1,0 +1,27 @@
+<h2 class="pt-2 text-lg font-bold">Target URLs</h2>
+<ul role="list" class="divide-y divide-gray-100">
+  <% target_urls.each do |target_url| %>
+    <li class="flex flex-col justify-between py-2">
+      <div class="flex flex-col gap-y-3 md:flex-row justify-between md:gap-x-6">
+        <div class="flex-auto">
+          <p class="text-ellipsis text-base font-semibold leading-6 text-gray-900"><%= target_url.title %></p>
+          <span>
+            <a class="text-ellipsis text-sm leading-5 text-sky-600 hover:underline"
+              href="<%= target_url.external_url %>"
+              target="_blank" 
+              ><%= target_url.external_url %></a>
+          </span>
+        </div>
+        <div class="shrink-0 flex flex-row items-center self-end sm:flex-col sm:items-end">
+          <p class="text-sm leading-5 text-gray-500"> <time datetime="<%= target_url.created_at %>">
+            <% if target_url.created_at < 23.hours.ago %>
+              <%= target_url.created_at.strftime("%e %b %Y") %>
+            <% else %>
+              Created <%= time_ago_in_words(target_url.created_at) %>
+            <% end %>
+          </time></p>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

@@ -1,5 +1,6 @@
 <div class="w-full">
   <% if @target_urls&.present? %>
+    <%= render partial: "target_urls", object: @target_urls %>    
   <% else %>
     <div>There are no URLs being shortened.</div>
   <% end %>
