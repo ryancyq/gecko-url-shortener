@@ -82,7 +82,7 @@ RSpec.describe "Admin Dashbaord" do
 
         within "h3 + ul > li:nth-child(1)" do
           expect(page).to have_text(%r{#{page.current_host}:\d+/#{short_url.slug}})
-          expect(page).to have_text("last visited -")
+          expect(page).to have_text("last visited:")
           expect(page).to have_text("31 times")
 
           expect(page).to have_link("Show Details")
