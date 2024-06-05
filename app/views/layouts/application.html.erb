@@ -12,9 +12,13 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-8 px-5">
+    <main class="container mx-auto mt-8 px-4">
       <div class=" py-4">
-        <a href="/" class="text-3xl font-bold">Shorten Url</a>
+        <% if content_for?(:application_name) %>
+          <%= yield :application_name %>
+        <% else %>
+          <a href="/" class="text-3xl font-bold">Shorten Url</a>
+        <% end %>
       </div>
       <%= yield %>
     </main>
