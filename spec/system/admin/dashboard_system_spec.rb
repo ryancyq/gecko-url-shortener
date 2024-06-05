@@ -19,10 +19,17 @@ RSpec.describe "Admin Dashbaord" do
   context "with shorten URLs" do
     let(:target_url) { build(:target_url) }
     let(:another_target_url) { build(:target_url) }
+    let(:another_short_url_1) { build(:short_url, target_url: another_target_url) }
+    let(:another_short_url_2) { build(:short_url, target_url: another_target_url) }
 
     before do
       create(:short_url, target_url:)
-      create(:short_url, target_url: another_target_url)
+      travel_to 1.day.ago do
+        another_short_url_1.save
+      end
+      travel_to 2.day.ago do
+        another_short_url_2.save
+      end
     end
 
     it "shows target urls" do
@@ -34,6 +41,28 @@ RSpec.describe "Admin Dashbaord" do
       expect(page).to have_link(target_url.external_url, href: target_url.external_url)
       expect(page).to have_text(another_target_url.title)
       expect(page).to have_link(another_target_url.external_url, href: another_target_url.external_url)
+    end
+
+    it "shows short urls" do
+      visit "/admin"
+
+      expect(page).to have_text("Admin")
+      expect(page).to have_text("Target URLs")
+
+      within "h2 + ul > li:nth-child(2)" do
+        expect(page).to have_link("Shorten URLs")
+        click_link_or_button "Shorten URLs"
+
+        within "h3 + ul > li:nth-child(1)" do
+          expect(page).to have_text(%r{#{page.current_host}:\d+/#{another_short_url_1.slug}})
+          expect(page).to have_text("no clicks yet")
+        end
+
+        within "h3 + ul > li:nth-child(2)" do
+          expect(page).to have_text(%r{#{page.current_host}:\d+/#{another_short_url_2.slug}})
+          expect(page).to have_text("no clicks yet")
+        end
+      end
     end
   end
 end
