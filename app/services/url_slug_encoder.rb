@@ -25,7 +25,7 @@ class UrlSlugEncoder
   attr_reader :max_chars, :slug_size, :max_value
 
   def initialize(slug_size:)
-    raise ArgumentError, "slug_size must be positive integer" unless slug_size.is_a?(Integer) && slug_size > 0
+    raise ArgumentError, "slug_size must be positive integer" unless slug_size.is_a?(Integer) && slug_size.positive?
 
     @slug_size = slug_size
     @max_value = (BASE**slug_size) - 1
@@ -70,12 +70,12 @@ class UrlSlugEncoder
 
   def encode_int(num)
     raise ArgumentError, "Encode value must be Integer" unless num.is_a?(Integer)
-    return nil if num < 0
-    return 0.to_s if num == 0
+    return nil if num.negative?
+    return 0.to_s if num.zero?
     raise ArgumentError, "Encode value can't be greater than #{max_value}" if num > max_value
 
     result = ""
-    while num > 0
+    while num.positive?
       remainder = num % BASE
       result = CHARS[remainder] + result # working backwards from least significant part
       num -= remainder # ensure num is divisible by BASE

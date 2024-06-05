@@ -27,7 +27,7 @@ class UrlController < ApplicationController
     url_slug = params.require(:slug)
     short_url = (ShortUrl.find_by(slug: url_slug) if UrlSlugEncoder.default.slug_size >= url_slug.length)
 
-    return redirect_to new_url_path, notice: "URL no longer available" unless short_url.present?
+    return redirect_to new_url_path, notice: "URL no longer available" if short_url.blank?
 
     track_url_redirection(short_url)
     redirect_to short_url.target_url.external_url, allow_other_host: true

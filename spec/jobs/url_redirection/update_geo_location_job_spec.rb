@@ -3,7 +3,7 @@
 require "rails_helper"
 require "geocoder"
 
-RSpec.describe UrlRedirection::UpdateGeoLocationJob, type: :job do
+RSpec.describe UrlRedirection::UpdateGeoLocationJob do
   let(:job) { described_class.new }
 
   context "with non numeric as arg" do
