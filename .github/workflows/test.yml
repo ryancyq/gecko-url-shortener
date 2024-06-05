@@ -1,0 +1,51 @@
+name: "Run Tests"
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+
+      - name: Run Rspec
+        run: |
+          bundle exec rspec --exclude-pattern "**/system/**/*_spec.rb"
+
+  system-test:
+    runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+
+      - name: Run Rspec
+        run: |
+          bundle exec rspec **/system/**/*_spec.rb
