@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: "dashboard#index", as: :dashboard
     get "/:target_url_id/urls", to: "dashboard#urls", as: :dashboard_urls
+    get "/:short_url_id/events", to: "dashboard#url_events", as: :dashboard_url_events
   end
 
   namespace :api do

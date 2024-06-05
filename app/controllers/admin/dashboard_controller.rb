@@ -13,6 +13,13 @@ class Admin::DashboardController < ApplicationController
     @url_visits = short_url_aggregations(@short_urls)
   end
 
+  def url_events
+    @short_url_id = params.require(:short_url_id)
+    events = UrlRedirectionEvent.where(short_url_id: @short_url_id).order(created_at: :desc)
+    @url_events = events.offset(pagination[:offset]).limit(pagination[:page_size])
+    @pagination = pagination.merge(total: events.count)
+  end
+
   private
 
   def short_url_aggregations(short_urls)
@@ -27,6 +34,23 @@ class Admin::DashboardController < ApplicationController
       res[short_url_id] = {
         count: event_count,
         latest: latest_event.presence && Time.parse(latest_event)
+      }
+    end
+  end
+
+  def pagination
+    @pagination ||= begin
+      page = begin
+        params[:page]&.to_i
+      rescue StandardError
+        1
+      end
+      page ||= 1 # default page
+      page_size = 5 # default page size
+      {
+        page: page,
+        offset: (page - 1) * page_size,
+        page_size: page_size
       }
     end
   end

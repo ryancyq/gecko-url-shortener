@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "short_url_#{@short_url_id}_events" do %>
+  <div class="w-full">
+    <% if @url_events&.present? %>
+      <%= render partial: "url_redirection_events", 
+                 object: @url_events, 
+                 locals: { short_url_id: @short_url_id, pagination: @pagination } 
+      %>
+    <% else %>
+      <div class="text-sm text-gray-500">There are no click events.</div>
+    <% end %>
+  </div>
+<% end %>

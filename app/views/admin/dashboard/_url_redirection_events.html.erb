@@ -1,0 +1,66 @@
+<div class="sm:rounded-lg">
+  <div class="overflow-x-auto ">
+    <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-4 py-3">User Agent</th>
+                <th scope="col" class="px-4 py-3 min-w-36">IP Address</th>
+                <th scope="col" class="px-4 py-3 min-w-24">Country</th>
+                <th scope="col" class="px-4 py-3 min-w-36">City</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% url_redirection_events.each do |event| %>
+              <tr class="bg-white border-b">
+                  <td class="px-4 py-2"><%= event.user_agent %></td>
+                  <td class="px-4 py-2"><%= event.ip_address %></td>
+                  <td class="px-4 py-2"><%= event.country.presence || "-" %></td>
+                  <td class="px-4 py-2"><%= event.city.presence || "-" %></td>
+              </tr>
+            <% end %>
+        </tbody>
+    </table>
+  </div>
+  <nav class="flex  flex-col flex-wrap items-center justify-center gap-y-2 md:flex-row md:justify-between pt-2" aria-label="Table navigation">
+    <div class="text-sm font-normal text-gray-500 block md:inline">
+      Showing
+      <span class="font-semibold text-gray-900">
+        <%= pagination[:offset] + 1 %> - <%= pagination[:page] * pagination[:page_size] %>
+      </span> of 
+      <span class="font-semibold text-gray-900"><%= pagination[:total] %></span>
+    </div>
+    <form>
+      <ul class="inline-flex -space-x-px text-sm font-medium h-8">
+        <li>
+            <% if pagination[:page] <= 1 %>
+              <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg">Previous</a>
+            <% else %>
+              <a rel="prev"
+              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-900 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
+              href="<%= admin_dashboard_url_events_path(short_url_id, page: pagination[:page] - 1) %>">Previous</a>
+            <% end%>
+        </li>
+        <% pages = (pagination[:total] / pagination[:page_size].to_f).ceil %>
+        <% (1..pages).each do |page| %>
+          <li>
+            <% if pagination[:page] == page %>
+              <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300"><%= page %></a>
+            <% else %>
+              <a class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+              href="<%= admin_dashboard_url_events_path(short_url_id, page: page) %>"><%= page %></a>
+            <% end%>
+          </li>
+        <% end %>
+        <li>
+            <% if pagination[:page] * pagination[:page_size] >= pagination[:total] %>
+              <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg">Next</a>
+            <% else %>
+              <a rel="next"
+              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-900 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
+              href="<%= admin_dashboard_url_events_path(short_url_id, page: pagination[:page] + 1) %>">Next</a>
+            <% end%>
+        </li>
+      </ul>
+    </form>
+  </nav>
+</div>

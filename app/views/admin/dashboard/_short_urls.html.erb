@@ -38,6 +38,16 @@
               </span>
             </div>
           </div>
+          <div class="shrink-0 flex flex-row items-center self-end sm:flex-col sm:items-end">
+            <div class="text-sm px-2 py-1 rounded-md text-lime-600 lg:hover:bg-lime-50">
+              <a href="<%= admin_dashboard_url_events_path(short_url.id) %>" 
+                data-turbo-frame="short_url_<%= short_url.id %>_events">Show Details</a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <%= turbo_frame_tag "short_url_#{short_url.id}_events" do %>
+          <% end %>
         </div>
       </li>
     <% end %>
