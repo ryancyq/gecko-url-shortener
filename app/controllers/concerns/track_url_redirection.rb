@@ -31,10 +31,20 @@ module TrackUrlRedirection
   def build_url_redirection_event
     UrlRedirectionEvent.new(
       user_agent: request.user_agent,
-      ip_address: request.remote_ip,
+      ip_address: client_remote_ip,
       path: request.path,
       method: request.method
     )
+  end
+
+  def client_remote_ip
+    if Rails.env.production? && ENV["FLY_APP_NAME"].present?
+      # read directly from fly.io header
+      # https://fly.io/docs/networking/services/#http-handler
+      return request.headers["HTTP_FLY_CLIENT_IP"]
+    end
+
+    request.remote_ip 
   end
 
   def enqueue_geolocation_job

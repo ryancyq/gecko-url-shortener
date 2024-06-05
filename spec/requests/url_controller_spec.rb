@@ -83,4 +83,38 @@ RSpec.describe UrlController do
       end
     end
   end
+
+  describe "read client remote ip" do
+   let(:short_url) { create(:short_url) }
+
+    context "with any environment" do
+      it "reads from request#remote_ip" do
+        get "/#{short_url.slug}", headers: { "HTTP_X_FORWARDED_FOR" => "8.8.8.8" }
+
+        short_url.url_redirection_events.reload
+        event = short_url.url_redirection_events.last
+        expect(event.ip_address).to eq "8.8.8.8"
+      end
+    end
+
+    context "with production environment in fly.io" do
+      before do
+        allow(Rails).to receive_message_chain(:env, :development?) { false }
+        allow(Rails).to receive_message_chain(:env, :production?) { true }
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with("FLY_APP_NAME").and_return "my-fly-app"
+      end
+
+      it "reads from FLY_CLIENT_IP header" do
+        get "/#{short_url.slug}", headers: { 
+          "HTTP_X_FORWARDED_FOR" => "8.8.8.8",
+          "HTTP_FLY_CLIENT_IP" => "0.0.0.0"
+        }
+
+        short_url.url_redirection_events.reload
+        event = short_url.url_redirection_events.last
+        expect(event.ip_address).to eq "0.0.0.0"
+      end
+    end
+  end
 end
