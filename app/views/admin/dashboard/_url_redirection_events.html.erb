@@ -25,7 +25,13 @@
     <div class="text-sm font-normal text-gray-500 block md:inline">
       Showing
       <span class="font-semibold text-gray-900">
-        <%= pagination[:offset] + 1 %> - <%= pagination[:page] * pagination[:page_size] %>
+        <% page_start = pagination[:offset] + 1 %>
+        <% page_end = [pagination[:page] * pagination[:page_size], pagination[:total]].min %>
+        <% if page_end - page_start > 0 %>
+          <%= page_start %> - <%= page_end %>
+        <% else %>
+          <%= page_start %>
+        <% end%>
       </span> of 
       <span class="font-semibold text-gray-900"><%= pagination[:total] %></span>
     </div>

@@ -114,7 +114,7 @@ RSpec.describe "Admin Dashbaord" do
             expect(page).to have_text("Showing 6 - 10 of 31")
 
             click_link_or_button "7"
-            expect(page).to have_text("Showing 30 - 31 of 31")
+            expect(page).to have_text("Showing 31 of 31")
           end
         end
       end
