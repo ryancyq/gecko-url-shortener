@@ -71,7 +71,9 @@ RSpec.describe "Admin Dashbaord" do
     end
 
     it "shows url events" do
-      create_list(:url_redirection_event, 31, short_url:)
+      freeze_time do
+        create_list(:url_redirection_event, 31, short_url:)
+      end
 
       visit "/admin"
 
