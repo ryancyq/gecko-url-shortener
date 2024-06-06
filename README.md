@@ -79,7 +79,7 @@ Note: for technical specifications, see [RESTful Endpoints](#api-endpoints)
 ### Libaries used
 - [Rails](https://guides.rubyonrails.org/getting_started.html)
 - [Turbo](https://github.com/hotwired/turbo-rails?tab=readme-ov-file#-turbo) (JavaScript framework for page rendering)
-- [Stimulus](https://github.com/hotwired/stimulus?tab=readme-ov-file#-stimulus) (JavaScript framework client side interaction)
+- [Stimulus](https://github.com/hotwired/stimulus?tab=readme-ov-file#-stimulus) (JavaScript framework for client side interaction)
 - [jbuilder](https://github.com/rails/jbuilder?tab=readme-ov-file#jbuilder) (JSON serializer)
 - [FFaker](https://github.com/ffaker/ffaker?tab=readme-ov-file#ffaker) (Test data generator)
 - [Factory Bot](https://github.com/thoughtbot/factory_bot_rails?tab=readme-ov-file) (Test fixture replacement)
@@ -91,43 +91,51 @@ Note: for technical specifications, see [RESTful Endpoints](#api-endpoints)
 
 ### Installation
 - Install `rbenv` package manager for `ruby` dependency. (see [rbenv guide](https://github.com/rbenv/rbenv?tab=readme-ov-file#installation))
-- Install project dependency
-  ```
+- Install project dependency:
+  ```sh
   bundle install
   ```
-- Initialize database
-  ```
+- Initialize database:
+  ```sh
   bin/rails db:migrate
   ```
-- Run the server
-  ```
+- Run the server:
+  ```sh
   bin/rails server
   ```
-- Visit the site at [http://localhost:3000](http://localhost:3000)
+- Visit the site at [http://localhost:3000](http://localhost:3000).
 
 ### Development
 
 #### Working on backend
 
-- Run `bin/rails server` to start the server 
-- Run `bin/rails console` to troubleshoot your code in the application environment
-- Run tests (include system tests)
-  ```
+- Run `bin/rails server` to start the server.
+- Run `bin/rails console` to troubleshoot your code in the application environment.
+- Run tests (include system tests):
+  ```sh
   bundle exec rspec
   ```
   or
-  ```
+  ```sh
   bundle exec rspec --exclude-pattern "**/system/**/*_spec.rb"
   ```
-  to exclude system tests
+  to exclude system tests.
 
 #### Working on frontend
 
 - Run `bin/dev` to start the 2 processes
-  - `bin/rails server` the usual server
-  - `bin/rails tailwindcss:watch` live rebuilds on the css assets
+  - For rails server
+    ```sh
+    bin/rails server
+    ```
+  - For live rebuilds on the CSS assets
+    ```sh
+    bin/rails tailwindcss:watch
+    ```
 - Run browser/system tests
-  - `bundle exec rspec **/system/**/*_spec.rb`
+  ```sh
+  bundle exec rspec **/system/**/*_spec.rb
+  ```
 
 ### API Endpoints
 
