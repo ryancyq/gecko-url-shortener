@@ -13,7 +13,11 @@
         <tbody>
             <% url_redirection_events.each do |event| %>
               <tr class="bg-white border-b">
-                  <td class="px-4 py-2"><%= event.created_at %></td>
+                  <td class="px-4 py-2 text-nowrap">
+                    <time datetime="<%= event.created_at.iso8601 %>" 
+                      data-controller="local-datetime"
+                      data-local-datetime-style-value="timestamp"/>
+                  </td>
                   <td class="px-4 py-2"><%= event.user_agent %></td>
                   <td class="px-4 py-2"><%= event.ip_address %></td>
                   <td class="px-4 py-2"><%= event.country.presence || "-" %></td>

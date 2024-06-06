@@ -13,13 +13,10 @@
             ><%= target_url.external_url %></a>
         </div>
         <div class="shrink-0 flex flex-row items-center self-end sm:flex-col sm:items-end">
-          <p class="text-sm leading-5 text-gray-500"> <time datetime="<%= target_url.created_at %>">
-            <% if target_url.created_at < 23.hours.ago %>
-              <%= target_url.created_at.strftime("%e %b %Y") %>
-            <% else %>
-              Created <%= time_ago_in_words(target_url.created_at) %>
-            <% end %>
-          </time></p>
+          <p class="text-sm leading-5 text-gray-500 px-2">
+            <time datetime="<%= target_url.created_at.iso8601 %>" 
+              data-controller="local-datetime" data-local-datetime-time-value="false"/>
+          </p>
           <div class="flex py-0 md:py-2">
             <div class="rounded-md p-2 text-amber-600 lg:hover:bg-amber-50">
               <a class="flex leading-5" 

@@ -42,8 +42,10 @@ RSpec.describe "Admin Dashbaord" do
       expect(page).to have_css("h2", text: "Target URLs")
       expect(page).to have_text(target_url.title)
       expect(page).to have_link(target_url.external_url, href: target_url.external_url)
+      expect(page).to have_text(target_url.created_at.strftime("%e %b %Y").strip)
       expect(page).to have_text(another_target_url.title)
       expect(page).to have_link(another_target_url.external_url, href: another_target_url.external_url)
+      expect(page).to have_text(another_target_url.created_at.strftime("%e %b %Y").strip)
     end
 
     it "shows short urls" do
@@ -98,9 +100,9 @@ RSpec.describe "Admin Dashbaord" do
             end
             within "tbody" do
               expect(page).to have_css("tr", count: 5)
-            end
-            within "tbody" do
-              expect(page).to have_css("tr", count: 5)
+              event = short_url.url_redirection_events.order(created_at: :desc).first
+              timestamp = event.created_at.localtime.strftime("%Y/%m/%d %H:%M:%S").strip
+              expect(page).to have_css("td > time", count: 5, text: timestamp)
             end
           end
 
