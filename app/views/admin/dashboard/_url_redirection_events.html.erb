@@ -23,7 +23,7 @@
         </tbody>
     </table>
   </div>
-  <nav class="flex  flex-col flex-wrap items-center justify-center gap-y-2 md:flex-row md:justify-between pt-2" aria-label="Table navigation">
+  <nav class="flex  flex-col flex-wrap items-center justify-center gap-y-2 md:flex-row md:justify-between pt-2" aria-label="Pagination">
     <div class="text-sm font-normal text-gray-500 block md:inline">
       Showing
       <span class="font-semibold text-gray-900">
@@ -52,7 +52,7 @@
         <% (1..pages).each do |page| %>
           <li>
             <% if pagination[:page] == page %>
-              <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300"><%= page %></a>
+              <span aria-current="page" class="z-10 bg-indigo-600 text-white flex items-center justify-center px-3 h-8 ms-0 leading-tight border border-gray-300"><%= page %></a>
             <% else %>
               <a class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
               href="<%= admin_dashboard_url_events_path(short_url_id, page: page) %>"><%= page %></a>
