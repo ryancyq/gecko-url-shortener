@@ -10,10 +10,10 @@ RSpec.describe "Shorten URL" do
   it "create shorten URL", vcr: "valid_new_short_url_system" do
     visit "/url"
 
-    expect(page).to have_text("Shorten a URL:")
+    expect(page).to have_text("Enter a URL:")
     expect(page).to have_button("Shorten URL")
 
-    fill_in "Shorten a URL:", with: "https://www.ruby-lang.org/en/"
+    fill_in "Enter a URL:", with: "https://www.ruby-lang.org/en/"
     click_link_or_button "Shorten URL"
 
     expect(page).to have_text("URL shortened successfully")
@@ -26,17 +26,17 @@ RSpec.describe "Shorten URL" do
 
     click_link_or_button "Shorten another"
 
-    expect(page).to have_text("Shorten a URL:")
+    expect(page).to have_text("Enter a URL:")
     expect(page).to have_button("Shorten URL")
   end
 
   it "create using unknown URL format" do
     visit "/url"
 
-    expect(page).to have_text("Shorten a URL:")
+    expect(page).to have_text("Enter a URL:")
     expect(page).to have_button("Shorten URL")
 
-    fill_in "Shorten a URL:", with: "https://helolo.adsa.\\\\edu/\\/"
+    fill_in "Enter a URL:", with: "https://helolo.adsa.\\\\edu/\\/"
     click_link_or_button "Shorten URL"
 
     expect(page).to have_text("Unknown URL: https://helolo.adsa.\\\\edu/\\/")

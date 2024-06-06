@@ -20,7 +20,7 @@ RSpec.describe "Redirect URL" do
     visit "/#{short_url.slug}random"
 
     expect(page).to have_text("URL no longer available")
-    expect(page).to have_text("Shorten a URL:")
+    expect(page).to have_text("Enter a URL:")
     expect(page).to have_button("Shorten URL")
   end
 end
