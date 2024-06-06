@@ -42,10 +42,10 @@ RSpec.describe "Admin Dashbaord" do
       expect(page).to have_css("h2", text: "Target URLs")
       expect(page).to have_text(target_url.title)
       expect(page).to have_link(target_url.external_url, href: target_url.external_url)
-      expect(page).to have_text(target_url.created_at.strftime("%e %b %Y").strip)
+      expect(page).to have_text(target_url.created_at.strftime("%b%e, %Y")) # chrome driver default to US timezone
       expect(page).to have_text(another_target_url.title)
       expect(page).to have_link(another_target_url.external_url, href: another_target_url.external_url)
-      expect(page).to have_text(another_target_url.created_at.strftime("%e %b %Y").strip)
+      expect(page).to have_text(another_target_url.created_at.strftime("%b%e, %Y")) # chrome driver default to US timezone
     end
 
     it "shows short urls" do
