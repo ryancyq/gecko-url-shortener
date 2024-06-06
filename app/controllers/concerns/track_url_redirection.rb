@@ -44,7 +44,7 @@ module TrackUrlRedirection
       return request.headers["HTTP_FLY_CLIENT_IP"]
     end
 
-    request.remote_ip 
+    request.remote_ip
   end
 
   def enqueue_geolocation_job

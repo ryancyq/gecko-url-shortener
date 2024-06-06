@@ -57,7 +57,7 @@ RSpec.describe UrlValidator do
 
     context "with fly.io" do
       let(:restricted_hostnames) { "gecko-url-shortener.fly.dev" }
-      
+
       include_examples "invalid url validator", "https://gecko-url-shortener.fly.dev/" do
         let(:error_class) { described_class::UnsupportedHostnameError }
       end

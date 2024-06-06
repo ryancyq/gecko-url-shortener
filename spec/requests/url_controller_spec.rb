@@ -85,7 +85,7 @@ RSpec.describe UrlController do
   end
 
   describe "read client remote ip" do
-   let(:short_url) { create(:short_url) }
+    let(:short_url) { create(:short_url) }
 
     context "with any environment" do
       it "reads from request#remote_ip" do
@@ -106,7 +106,7 @@ RSpec.describe UrlController do
       end
 
       it "reads from FLY_CLIENT_IP header" do
-        get "/#{short_url.slug}", headers: { 
+        get "/#{short_url.slug}", headers: {
           "HTTP_X_FORWARDED_FOR" => "8.8.8.8",
           "HTTP_FLY_CLIENT_IP" => "0.0.0.0"
         }
