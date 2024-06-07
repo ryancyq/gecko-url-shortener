@@ -24,9 +24,9 @@ Given the 15 characters, there are two ways we can utilize them:
   `log2(62^15) / 8` gives us around 11 characters, which we can apply to the object ID space of short-form URLs. This provides us with a maximum of 10^11 unique short-form URLs.
 
 #### Comparision
-Approach 1 seems better than Approach 2; however, it has drawbacks in the URI path randomness. For example, a short-form URL with id=1 would generate the URI path "/1", id=63 would give "/11", and id=3907 would give "/111". Even if we shuffle the order of characters in the 62-character set, a predictable pattern in the URI path still exists.
+Approach 1 seems better than Approach 2; however, it has drawbacks in the URI path randomness. For example, a short-form URL with id=1 would generate the URI path `/1`, id=63 would give `/11`, and id=3907 would give `/111`. Even if we shuffle the order of characters in the 62-character set, a predictable pattern in the URI path still exists.
 
-On the other hand, Approach 2 takes an object ID, converts it into characters and then into an integer, and encodes it using the 62-character set. For example, id=1 gives "/4NhuQh0in8WwpPi", id=63 gives "/4ZvHPgJ4uGIquiI", and id=64 gives "/5nxPthEABhitIBO".
+On the other hand, Approach 2 takes an object ID, converts it into characters and then into an integer, and encodes it using the 62-character set. For example, id=1 gives `/4NhuQh0in8WwpPi`, id=63 gives `/4ZvHPgJ4uGIquiI`, and id=64 gives `/5nxPthEABhitIBO`.
 
 Although Approach 2 only provides 10^11 unique short-form URLs, it is actually sufficient for most systems. Considering a scenario with 50req/seconds for short-form URL creation, 50 * 3600 seconds/hour * 24 hours/day * 365 days/year ~= 3 x 10^9. This means the 10^11 space can technically serve the system for ~ 63 years.
 
