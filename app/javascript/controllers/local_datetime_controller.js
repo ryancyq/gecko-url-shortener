@@ -84,7 +84,6 @@ export default class extends Controller {
   }
 
   get localDateTime() {
-    debugger;
     if (this.isTimestamp) {
       let parts = [];
       if (this.displayDate) {
