@@ -95,6 +95,10 @@ Note: for technical specifications, see [RESTful Endpoints](#api-endpoints)
   ```sh
   bundle install
   ```
+- Create database:
+  ```sh
+  bin/rails db:create
+  ```
 - Initialize database:
   ```sh
   bin/rails db:migrate
